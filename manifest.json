@@ -1,19 +1,21 @@
 {
-  "name": "Udacity Playback Rate",
+  "name": "_Udacity Playback Rate",
   "version": "0.1",
   "manifest_version": 2,
   "description": "Update playback rate of Udacity videos.",
+  "permissions": [ "http://www.udacity.com/"],
+  "background": {
+    "scripts": ["channel.js"]
+  },
   "content_scripts": [
     {
       "matches": ["*://www.youtube.com/embed/*"],
       "js": ["playback.js"],
-      "run_at": "document_idle",
       "all_frames": true
     },
     {
       "matches": ["*://www.udacity.com/view*"],
-      "js": ["button.js"],
-      "run_at": "document_end"
+      "js": ["button.js"]
     }
   ]
 }

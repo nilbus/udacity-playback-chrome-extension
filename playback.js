@@ -1,9 +1,9 @@
 (function() {
-
-    var videos = document.getElementsByTagName('video');
-    if (videos.length) {
-      setInterval(function() {
-        videos[0].playbackRate = 0.75;
-      }, 0);
-    }
+    var port = chrome.extension.connect({name: "youtube"});
+    port.onMessage.addListener(function(msg) {
+      var videos = document.getElementsByTagName('video');
+      if (videos.length && msg.data) {
+        videos[0].playbackRate = parseInt(msg.data) / 100;
+      }
+    });
 })();
