@@ -15,7 +15,8 @@
     },
     {
       "matches": ["*://www.udacity.com/view*"],
-      "js": ["button.js"]
+      "js": ["button.js"],
+      "css": ["button.css"]
     }
   ]
 }

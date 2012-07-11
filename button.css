@@ -1,0 +1,13 @@
+#speed-update-button {
+  padding-left: 5px;
+  margin: 2px 0px 0px 22px;
+  width: 98px;
+}
+
+#speed-button-menu {
+  position: absolute;
+  right: 155px;
+  width: 98px;
+  z-index: 1000;
+  display: none;
+}
