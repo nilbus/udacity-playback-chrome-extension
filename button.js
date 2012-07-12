@@ -2,7 +2,7 @@
     var speeds = [175, 150, 125, 100, 90, 80, 70];
 
     // Connect to the channel
-    var youtube = chrome.extension.connect({name: "udacity"});
+    var youtube = chrome.extension.connect({name: "udacity" + Math.random()});
 
     // Retrieve current course from the URL
     var currentCourse = function() {
@@ -49,19 +49,13 @@
     };
 
     // Send video speed info to the playback content script
-    // The delay is necessary as the video tag may not be fully
-    // loaded yet when the URL is updated. It's tricky as there
-    // is an existing video there so if we update too soon we end
-    // up updating the old one right before it's swapped out.
-    // TODO: make this more robust as the 2sec timeout may not always work
-    //       onChange for the video tag?
     var speedPingCallback = function(msg) {
       setTimeout(function() {
         var speed = getFromLocalStorage();
         if (speed != msg.data) {
           youtube.postMessage({data: speed ? speed : 100});
         }
-      }, 2000);
+      }, 0);
     };
 
     // Set up the menu overlay
