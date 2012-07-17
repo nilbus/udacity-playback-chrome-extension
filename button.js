@@ -23,7 +23,7 @@
 
     // localStorage setter wrapper
     var updateLocalStorage = function(speed) {
-      var LS = {};
+      var LS = JSON.parse(localStorage.getItem('playbackRate'));
       LS[currentCourse()] = {main: speed};
       localStorage.setItem('playbackRate', JSON.stringify(LS));
     };
