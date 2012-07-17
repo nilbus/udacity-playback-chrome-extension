@@ -105,9 +105,6 @@
       return a;
     };
 
-    // Update video speed when the URL changes
-    window.addEventListener('popstate', speedPingCallback);
-
     // Set callback to send video speed to the playback content script
     youtube.onMessage.addListener(speedPingCallback);
 
