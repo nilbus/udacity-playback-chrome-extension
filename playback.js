@@ -1,4 +1,6 @@
 (function() {
+    if (('' + document.location).indexOf('udacity') == -1) return;
+
     // connect to the channel
     var port = chrome.extension.connect({name: "youtube" + Math.random()});
 
@@ -16,7 +18,12 @@
       var currentSpeed = video.playbackRate;
       // assume 100% if we didn't get anything
       currentSpeed = currentSpeed ? parseFloat(currentSpeed) * 100 : 100;
-      port.postMessage({data: currentSpeed});
+      try {
+        port.postMessage({data: currentSpeed});
+      } catch (e) {
+        port = chrome.extension.connect({name: "youtube" + Math.random()});
+        port.postMessage({data: currentSpeed});
+      }
     };
 
     // Send initial speed ping request along with current speed
@@ -33,4 +40,5 @@
         sendPing(video);
       }
     }, 1000);
+
 })();

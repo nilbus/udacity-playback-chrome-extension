@@ -3,7 +3,7 @@
   "version": "0.1",
   "manifest_version": 2,
   "description": "Update playback rate of Udacity videos.",
-  "permissions": ["http://www.udacity.com/"],
+  "permissions": ["webRequest", "webRequestBlocking", "*://www.youtube.com/embed/*"],
   "background": {
     "scripts": ["channel.js"]
   },

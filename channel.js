@@ -1,8 +1,29 @@
 /*
+ * Background page script.
  * Shuffle messages between udacity and youtube content scripts
+ * and intercepts YouTube embed request headers to force HTML5 playback
  */
 var udacity_ports = [];
 var youtube_ports = [];
+
+// Update the YouTube PREF cookie to request HTML5 version of the embed
+// I've tried passing in html5=1 URL param but if the PREF cookie is
+// set it seems to take precedence so that wasn't enough.
+// This approach seems to more reliable..
+chrome.webRequest.onBeforeSendHeaders.addListener(
+  function(details){
+    for (var i = 0; i < details.requestHeaders.length; i++) {
+      if (details.requestHeaders[i].name === 'Cookie' &&
+          details.requestHeaders[i].value.match(/PREF=[^;]*f3=40000/)) {
+        details.requestHeaders[i].value = details.requestHeaders[i].value.replace(
+            /f3=[0-9]*/, 'f2=40000000')
+        return {requestHeaders: details.requestHeaders};
+      }
+    }
+  },
+  {urls: ["*://www.youtube.com/embed/*"]},
+  ["blocking", "requestHeaders"]
+);
 
 var handleConnection = function(port, from, to) {
   var idx = from.length;

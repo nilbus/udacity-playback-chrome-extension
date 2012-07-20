@@ -15,7 +15,7 @@
     // lectures within the same course
     // (some of the TA's talk *much* slower than the profs)
     var getFromLocalStorage = function() {
-      var LS = JSON.parse(localStorage.getItem('playbackRate'));
+      var LS = JSON.parse(localStorage.getItem('playbackRate')) || {};
       if (LS && LS[currentCourse()]) {
         return LS[currentCourse()]['main'];
       }
@@ -41,7 +41,12 @@
     // to set up the callback chain needed to verify it so we just
     // plow ahead here.
     var updateSpeed = function(speed) {
-      youtube.postMessage({data: speed});
+      try {
+        youtube.postMessage({data: speed});
+      } catch (e) {
+        youtube = chrome.extension.connect({name: "udacity" + Math.random()});
+        youtube.postMessage({data: speed});
+      }
       var button = document.getElementById('speed-update-button');
       button.innerHTML = button.innerHTML.replace(/[0-9]*%/, '' + speed + '%');
       updateLocalStorage(speed);
