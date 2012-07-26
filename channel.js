@@ -12,11 +12,20 @@ var youtube_ports = [];
 // This approach seems to more reliable..
 chrome.webRequest.onBeforeSendHeaders.addListener(
   function(details){
+    var header;
     for (var i = 0; i < details.requestHeaders.length; i++) {
-      if (details.requestHeaders[i].name === 'Cookie' &&
-          details.requestHeaders[i].value.match(/PREF=[^;]*f3=40000/)) {
-        details.requestHeaders[i].value = details.requestHeaders[i].value.replace(
-            /f3=[0-9]*/, 'f2=40000000')
+      header = details.requestHeaders[i];
+      if (header.name === 'Cookie' && header.value.match(/PREF=/) &&
+          !header.value.match(/f2=40000000/)) {
+          if (header.value.match(/f3=[0-9]*/)) {
+            header.value = header.value.replace(/f3=[0-9]*/, 'f2=40000000')
+          } else {
+            var f1 = header.value.match(/f1=[0-9]*/);
+            if (f1.length) {
+              f1 = f1[0];
+              header.value = header.value.replace(f1, f1 + '&f2=40000000')
+            }
+          }
         return {requestHeaders: details.requestHeaders};
       }
     }
