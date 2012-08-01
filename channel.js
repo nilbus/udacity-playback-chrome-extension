@@ -15,17 +15,22 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
     var header;
     for (var i = 0; i < details.requestHeaders.length; i++) {
       header = details.requestHeaders[i];
-      if (header.name === 'Cookie' && header.value.match(/PREF=/) &&
-          !header.value.match(/f2=40000000/)) {
-          if (header.value.match(/f3=[0-9]*/)) {
-            header.value = header.value.replace(/f3=[0-9]*/, 'f2=40000000')
-          } else {
-            var f1 = header.value.match(/f1=[0-9]*/);
-            if (f1.length) {
-              f1 = f1[0];
-              header.value = header.value.replace(f1, f1 + '&f2=40000000')
+      if (header.name === 'Cookie' && header.value.match(/PREF=/)) {
+        var pref = 'PREF=';
+        var prefRE = new RegExp(pref + '[^;]*')
+        var vals = header.value.match(prefRE)[0].slice(pref.length).match(/[^&]+/g);
+        if (vals && vals.length) {
+          var nvals = [];
+          for (var i = 0; i < vals.length; i++) {
+            if (i && vals[i-1].match(/^f1=/)) {
+              nvals.push('f2=40000000')
+            }
+            if (!vals[i].match(/^f3=/)) {
+              nvals.push(vals[i])
             }
           }
+          header.value = pref + nvals.join('&');
+        }
         return {requestHeaders: details.requestHeaders};
       }
     }

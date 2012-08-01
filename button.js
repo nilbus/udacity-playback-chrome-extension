@@ -31,7 +31,9 @@
     // Show/hide speed selection menu
     var togglePopup = function(button) {
       var menu = document.getElementById('speed-button-menu');
-      menu.style.display = (menu.style.display == 'block' ? 'none' : 'block');
+      if (menu) {
+        menu.style.display = (menu.style.display == 'block' ? 'none' : 'block');
+      }
     };
 
     // Send the update event to the playback content script,
@@ -48,7 +50,9 @@
         youtube.postMessage({data: speed});
       }
       var button = document.getElementById('speed-update-button');
-      button.innerHTML = button.innerHTML.replace(/[0-9]*%/, '' + speed + '%');
+      if (button) {
+        button.innerHTML = button.innerHTML.replace(/[0-9]*%/, '' + speed + '%');
+      }
       updateLocalStorage(speed);
       togglePopup();
     };
