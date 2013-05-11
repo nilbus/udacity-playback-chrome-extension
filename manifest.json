@@ -1,6 +1,7 @@
 {
   "name": "Udacity Playback Rate",
-  "version": "0.3",
+  "version": "0.4",
+  "icons": {"48": "speed48.png", "128": "speed128.png"},
   "manifest_version": 2,
   "description": "Control playback rate of Udacity videos.",
   "permissions": ["webRequest", "webRequestBlocking", "*://www.youtube.com/embed/*"],
@@ -14,7 +15,7 @@
       "all_frames": true
     },
     {
-      "matches": ["*://www.udacity.com/view*"],
+      "matches": ["*://www.udacity.com/course/viewer*"],
       "js": ["button.js"],
       "css": ["button.css"]
     }
