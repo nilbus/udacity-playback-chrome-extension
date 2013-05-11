@@ -5,7 +5,7 @@ var youtube = chrome.extension.connect({name: "udacity" + Math.random()});
 
 // Retrieve current course from the URL
 var currentCourse = function() {
-  return window.location.hash.replace(/Unit.*/, '');
+  return window.location.hash.split("/")[1];
 };
 
 // localStorage getter wrapper
