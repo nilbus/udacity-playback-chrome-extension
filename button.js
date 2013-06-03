@@ -114,7 +114,7 @@ var buildButton = function(a){
   }, false);
   a.parentNode.appendChild(outer);
   var button = document.createElement('div');
-  button.className = a.getElementsByTagName('a')[0].className;
+  button.className = a.getElementsByTagName('div')[0].className;
   button.innerHTML = "Speed: <strong>" + (speed ? speed : "100") + "%</strong>" +
                      "&nbsp;<b class=\"caret\"></b>";
   outer.appendChild(button);

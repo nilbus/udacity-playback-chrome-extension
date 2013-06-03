@@ -1,6 +1,6 @@
 {
   "name": "Udacity Playback Rate",
-  "version": "0.5",
+  "version": "0.6",
   "icons": {"48": "speed48.png", "128": "speed128.png"},
   "manifest_version": 2,
   "description": "Control playback rate of Udacity videos.",
