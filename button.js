@@ -1,4 +1,4 @@
-var speeds = [175, 150, 125, 100, 90, 80, 70];
+var speeds = [200, 175, 150, 125, 100, 90, 80, 70];
 
 // Connect to the channel
 var youtube = chrome.extension.connect({name: "udacity" + Math.random()});
@@ -115,8 +115,17 @@ var buildButton = function(a){
   a.parentNode.appendChild(outer);
   var button = document.createElement('div');
   button.className = a.getElementsByTagName('div')[0].className;
-  button.innerHTML = "Speed: <strong>" + (speed ? speed : "100") + "%</strong>" +
-                     "&nbsp;<b class=\"caret\"></b>";
+  var titleContainer = document.createElement('div');
+  titleContainer.className = 'dropdown-menu-toggle-container';
+  var title = document.createElement('div');
+  title.className = 'dropdown-menu-toggle-title';
+  title.innerHTML = "Speed: " + (speed ? speed : "100") + "%";
+  var caret = document.createElement('div');
+  caret.className = 'dropdown-menu-toggle-icon';
+  caret.innerHTML = "<b class=\"caret\"></b>";
+  titleContainer.appendChild(title);
+  titleContainer.appendChild(caret);
+  button.appendChild(titleContainer);
   outer.appendChild(button);
   return a;
 };
