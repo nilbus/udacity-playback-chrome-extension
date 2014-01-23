@@ -52,7 +52,7 @@ var handleConnection = function(port, from, to) {
   });
 };
 
-chrome.extension.onConnect.addListener(function(port) {
+chrome.runtime.onConnect.addListener(function(port) {
   try {
     if (port.name.match(/^udacity/) && !udacity_ports.indexOf(port) >= 0) {
       handleConnection(port, udacity_ports, youtube_ports);

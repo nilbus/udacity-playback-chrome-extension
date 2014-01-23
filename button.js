@@ -1,7 +1,7 @@
 var speeds = [200, 175, 150, 125, 100, 90, 80, 70];
 
 // Connect to the channel
-var youtube = chrome.extension.connect({name: "udacity" + Math.random()});
+var youtube = chrome.runtime.connect({name: "udacity" + Math.random()});
 
 // Retrieve current course from the URL
 var currentCourse = function() {
@@ -47,7 +47,7 @@ var updateSpeed = function(speed) {
   try {
     youtube.postMessage({data: speed});
   } catch (e) {
-    youtube = chrome.extension.connect({name: "udacity" + Math.random()});
+    youtube = chrome.runtime.connect({name: "udacity" + Math.random()});
     youtube.postMessage({data: speed});
   }
   var button = document.getElementById('speed-update-button');

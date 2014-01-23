@@ -1,7 +1,7 @@
 if (('' + document.location).indexOf('udacity') == -1) return;
 
 // connect to the channel
-var port = chrome.extension.connect({name: "youtube" + Math.random()});
+var port = chrome.runtime.connect({name: "youtube" + Math.random()});
 
 // handle speed update messages
 var updateSpeed = function(msg) {
@@ -20,7 +20,7 @@ var sendPing = function(video) {
   try {
     port.postMessage({data: currentSpeed});
   } catch (e) {
-    port = chrome.extension.connect({name: "youtube" + Math.random()});
+    port = chrome.runtime.connect({name: "youtube" + Math.random()});
     port.postMessage({data: currentSpeed});
   }
 };
